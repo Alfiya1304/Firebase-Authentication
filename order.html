@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ff9999, #ffcc99, #ffef99, #ccff99, #99ff99); /* Color gradient resembling pizza colors */
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adding a shadow effect to the text */
+    }
+    .order-details {
+      background-color: rgba(255, 255, 255, 0.8); /* Adding a semi-transparent white background */
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .order-details h2 {
+      color: #333;
+    }
+    .order-details p {
+      margin: 10px 0;
+    }
+    .address-form {
+      background-color: rgba(255, 255, 255, 0.8); /* Adding a semi-transparent white background */
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .address-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .address-form input[type="text"],
+    .address-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .place-order-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Order Details</h1>
+    <div class="order-details">
+      <h2>Pizza Order</h2>
+      <p>Pizza: <span id="pizzaName"></span></p>
+      <p>Total Amount: ₹<span id="totalAmount"></span></p>
+      <p>Tax (18%): ₹<span id="taxAmount"></span></p>
+      <p>Grand Total: ₹<span id="grandTotal"></span></p>
+    </div>
+    <div class="address-form">
+      <h2>Delivery Address</h2>
+      <form id="addressForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea>
+        <button type="submit" class="place-order-button">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const pizzaName = urlParams.get('pizzaName');
+    const totalAmount = parseInt(urlParams.get('totalAmount'));
+    
+    // Calculate tax and grand total
+    const taxRate = 0.18; // 18% tax
+    const taxAmount = totalAmount * taxRate;
+    const grandTotal = totalAmount + taxAmount;
+
+    // Populate order details
+    document.getElementById('pizzaName').textContent = pizzaName;
+    document.getElementById('totalAmount').textContent = totalAmount;
+    document.getElementById('taxAmount').textContent = taxAmount.toFixed(2);
+    document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
+
+    // Form submission handler
+    document.getElementById('addressForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+      const formData = new FormData(this); // Get form data
+      // You can process the form data here (e.g., send it to a server)
+      //alert('Your order has been placed successfully!'); // Placeholder for actual order placement
+      // Redirect to a thank you page or any other page as needed
+      window.location.href = 'thankyou.html';
+    });
+  </script>
+</body>
+</html>

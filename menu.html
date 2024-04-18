@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Menu</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ff9999, #ffcc99, #ffef99, #ccff99, #99ff99); /* Color gradient resembling pizza colors */
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
+    h1 {
+      text-align: center;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adding a shadow effect to the text */
+    }
+    .pizza-menu {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .pizza-item {
+      width: calc(33.33% - 20px);
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.8); /* Adding a semi-transparent white background */
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .pizza-item h2 {
+      margin-top: 0;
+      font-family: 'Georgia', serif; /* Changing font family */
+      color: #333;
+    }
+    .pizza-img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adding a shadow effect to the images */
+    }
+    .price {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 18px;
+      color: #333;
+    }
+    .add-to-cart {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+    .add-to-cart:hover {
+      background-color: #45a049; /* Darker shade on hover */
+    }
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #f44336;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%
+      z-index: 2; /* Ensure cart is above the content */
+    }
+    .cart-count {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background-color: white;
+      color: #f44336;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+    }
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 3; /* Ensure overlay is above everything */
+    }
+    .cart-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .cart-item {
+      margin-bottom: 10px;
+    }
+    .cart-item-info {
+      display: flex;
+      justify-content: space-between;
+    }
+    .cart-item-name {
+      flex-grow: 1;
+    }
+    .cart-item-price {
+      margin-left: 10px;
+    }
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+    }
+    .cart-item-action {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .close-cart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .order-now-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pizza Menu</h1>
+    <div class="pizza-menu">
+      <div class="pizza-item">
+        <h2>Chicago Style Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\ChicagoStylePizza.jpg" alt="Chicago Style Pizza" class="pizza-img">
+        <div class="price">₹400</div>
+        <button class="add-to-cart" onclick="addToCart('Chicago Style', 400)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>Brick Oven Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\BrickOvenPizza.jpg" alt="Brick Oven Pizza" class="pizza-img">
+        <div class="price">₹420</div>
+        <button class="add-to-cart" onclick="addToCart('Brick Oven', 420)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>Italian Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\ItalianPizza.jpeg" alt="Italian Pizza" class="pizza-img">
+        <div class="price">₹400</div>
+        <button class="add-to-cart" onclick="addToCart('Italian', 400)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>Neapolitan Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\NeapolitanPizza.jpg" alt="Neapolitan Pizza" class="pizza-img">
+        <div class="price">₹490</div>
+        <button class="add-to-cart" onclick="addToCart('Neapolitan', 490)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>California Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\CaliforniaPizza.webp" alt="California Pizza" class="pizza-img">
+        <div class="price">₹440</div>
+        <button class="add-to-cart" onclick="addToCart('California', 440)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>New York Style Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\ny.jpeg" alt="NY Style Pizza" class="pizza-img">
+        <div class="price">₹470</div>
+        <button class="add-to-cart" onclick="addToCart('New York Style', 470)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>Sicilian Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\SicilianPizza.jpg" alt="Sicilian Pizza" class="pizza-img">
+        <div class="price">₹460</div>
+        <button class="add-to-cart" onclick="addToCart('Sicilian', 460)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>Greek Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\DetroitPizza.jpg" alt="Detroit Pizza" class="pizza-img">
+        <div class="price">₹430</div>
+        <button class="add-to-cart" onclick="addToCart('Detroit', 430)">Add to Cart</button>
+      </div>
+      <div class="pizza-item">
+        <h2>Greek Pizza</h2>
+        <img src="C:\Users\unite\OneDrive\Pictures\GreekPizza.jpg" alt="Greek Pizza" class="pizza-img">
+        <div class="price">₹410</div>
+        <button class="add-to-cart" onclick="addToCart('Greek', 410)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="cart" onclick="toggleCart()">
+      <span class="cart-count">0</span>
+      &#128722; <!-- Cart icon -->
+    </div>
+    <div class="cart-overlay" onclick="toggleCart()">
+      <div class="cart-content">
+        <span class="close-cart" onclick="toggleCart()">&times;</span>
+        <h2>Cart</h2>
+        <div id="cartItems"></div>
+        <button class="order-now-button" onclick="redirectToOrderPage()">Order Now</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    let cart = [];
+    const cartCount = document.querySelector('.cart-count');
+
+    function addToCart(pizzaName, price) {
+      cart.push({ name: pizzaName, price: price });
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() {
+      const overlay = document.querySelector('.cart-overlay');
+      overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+
+      // Update cart items
+      const cartItemsContainer = document.getElementById('cartItems');
+      cartItemsContainer.innerHTML = '';
+      cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        const cartItemInfo = document.createElement('div');
+        cartItemInfo.classList.add('cart-item-info');
+        const cartItemName = document.createElement('div');
+        cartItemName.classList.add('cart-item-name');
+        cartItemName.textContent = item.name;
+        const cartItemPrice = document.createElement('div');
+        cartItemPrice.classList.add('cart-item-price');
+        cartItemPrice.textContent = '₹' + item.price;
+        const cartItemActions = document.createElement('div');
+        cartItemActions.classList.add('cart-item-actions');
+        const deleteButton = document.createElement('span');
+        deleteButton.classList.add('cart-item-action');
+        deleteButton.textContent = '❌';
+        deleteButton.onclick = function() {
+          removeFromCart(item);
+        };
+        cartItemActions.appendChild(deleteButton);
+        cartItemInfo.appendChild(cartItemName);
+        cartItemInfo.appendChild(cartItemPrice);
+        cartItem.appendChild(cartItemInfo);
+        cartItem.appendChild(cartItemActions);
+        cartItemsContainer.appendChild(cartItem);
+      });
+    }
+
+    function removeFromCart(item) {
+      const index = cart.findIndex(cartItem => cartItem.name === item.name);
+      if (index !== -1) {
+        cart.splice(index, 1);
+        updateCartCount();
+        toggleCart();
+      }
+    }
+
+    function redirectToOrderPage() {
+      const selectedPizzas = cart.map(item => item.name);
+      const totalAmount = cart.reduce((total, item) => total + item.price, 0);
+      const queryString = new URLSearchParams({ pizzaName: selectedPizzas.join(','), totalAmount }).toString();
+      window.location.href = 'order.html?' + queryString;
+    }
+  </script>
+</body>
+</html>
